@@ -2,7 +2,7 @@
 import Image from "next/image";
 import React, { useState } from "react";
 import { motion } from "framer-motion";
-import fiv from "../../components/images/women.png";
+import fiv from "../../components/images/image.png";
 import { Design, Form, LoginForm } from "@/components/pages/login";
 
 const Page = () => {

@@ -1,8 +1,16 @@
 import type { Metadata } from "next";
-import { Open_Sans } from "next/font/google";
+import { Poppins, DM_Sans } from "next/font/google";
 import "./globals.css";
+import { GoogleOAuthProvider } from "@react-oauth/google";
 
-const inter = Open_Sans({ subsets: ["latin"] });
+const poppins = Poppins({
+  subsets: ["latin", "latin-ext"],
+  weight: ["100", "200", "300", "400", "500", "600", "700", "800", "900"],
+});
+const dm_snas = DM_Sans({
+  subsets: ["latin", "latin-ext"],
+  weight: ["100", "200", "300", "400", "500", "600", "700", "800", "900"],
+});
 
 export const metadata: Metadata = {
   title: "Create Next App",
@@ -16,7 +24,11 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en">
-      <body className={`${inter}`}>{children}</body>
+      <body className={`${poppins.className} ${dm_snas.className}`}>
+        <GoogleOAuthProvider clientId="58775672672-o08j2p710i3lqtr1r3tpll40noc9fn43.apps.googleusercontent.com">
+          {children}
+        </GoogleOAuthProvider>
+      </body>
     </html>
   );
 }

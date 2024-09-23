@@ -2,14 +2,48 @@ import { ArrowIcon } from "@/components/svg";
 import Image from "next/image";
 import React, { useState } from "react";
 import { motion } from "framer-motion";
+import { CodeResponse, useGoogleLogin } from "@react-oauth/google";
 
 function Form() {
   const [showPassword, setShowPassword] = useState(false);
+  
 
   const togglePasswordVisibility = () => {
     setShowPassword(!showPassword);
   };
+  const googleResponse = async (authResult:CodeResponse) => {
+    try {
+      if (authResult.code) {
+        const response = await fetch(`http://localhost:8000/auth/google?code=${authResult.code}`, {
+          method:"POST", // Specify method if needed
+          headers: {
+            'Content-Type': 'application/json',
+          },
+        });
+  
+        if (!response.ok) {
+          throw new Error(`Google auth failed with status ${response.status}`);
+        }
+  
+        const data = await response.json(); // Handle response data
+        console.log("Google Auth Response:", data);
+      } else {
+        console.log("Google Auth result does not contain a code:", authResult);
+      }
+    } catch (error) {
+      console.log("Error during Google authentication:", error);
+    }
+  };
+  
+  // Separate success and error handlers for better clarity
+  const googleLogin = useGoogleLogin({
+    onSuccess: googleResponse,
+    onError: (error) => console.log("Google login error:", error),
+    flow: "auth-code",
+    // ux_mode: "redirect", // Switch to redirect-based flow instead of popup
+    // redirect_uri:"http://localhost:3000/login"
 
+  });
   return (
     <motion.div
       className="flex flex-col items-center gap-4 justify-center font-sans"
@@ -98,6 +132,7 @@ function Form() {
           className="w-full h-[42px] border-[1.4px] border-solid rounded-md border-[#18182f] flex items-center justify-center gap-2 font-semibold text-[#18182f]"
           whileHover={{ scale: 1.01 }}
           whileTap={{ scale: 0.99 }}
+          onClick={googleLogin}
         >
           <Image
             src="https://www.svgrepo.com/show/303108/google-icon-logo.svg"
