@@ -1,24 +1,56 @@
 "use client";
-import React, { useRef } from "react";
+import React from "react";
 import Image from "next/image";
 import bg from "../../components/images/image3.png";
 import graph from "../../components/images/graph.svg";
 import grid from "../../components/images/grid.svg";
 import bargraph from "../../components/images/bargraph.svg";
-
 import { Logo } from "@/components/core/logo";
-import { motion, useInView } from "framer-motion";
+import { motion } from "framer-motion";
+import { CodeResponse, useGoogleLogin } from "@react-oauth/google";
+import { useRouter } from "next/navigation";
 
 function Page() {
-  const ref1 = useRef(null);
-  const ref2 = useRef(null);
-  const ref3 = useRef(null);
-  const ref4 = useRef(null);
+  const router = useRouter();
+  const googleResponse = async (authResult: CodeResponse) => {
+    try {
+      if (authResult.code) {
+        const response = await fetch(
+          `http://localhost:8000/auth/google?code=${authResult.code}`,
+          {
+            method: "POST", // Specify method if needed
+            credentials: "include", // Important to send and receive cookies
+            headers: {
+              "Content-Type": "application/json",
+            },
+          }
+        );
 
-  const inView1 = useInView(ref1, { amount: 0.01 });
-  const inView2 = useInView(ref2, { amount: 0.01 });
-  const inView3 = useInView(ref3, { amount: 0.01 });
-  const inView4 = useInView(ref4, { amount: 0.01 });
+        if (!response.ok) {
+          throw new Error(`Google auth failed with status ${response.status}`);
+        }
+
+        const data = await response.json(); // Handle response data
+        if (data.success) {
+          router.push("/dashboard");
+        }
+        console.log("Google Auth Response:", data);
+      } else {
+        console.log("Google Auth result does not contain a code:", authResult);
+      }
+    } catch (error) {
+      console.log("Error during Google authentication:", error);
+    }
+  };
+
+  // Separate success and error handlers for better clarity
+  const googleLogin = useGoogleLogin({
+    onSuccess: googleResponse,
+    onError: (error) => console.log("Google login error:", error),
+    flow: "auth-code",
+    // ux_mode: "redirect",
+    // redirect_uri: "http://localhost:3000/sighup",
+  });
 
   return (
     <div className=" w-full h-screen bg-white flex p-3  ">
@@ -39,6 +71,7 @@ function Page() {
               className="w-full h-[40px] border-[1.2px] border-solid rounded-md border-black/80 flex items-center justify-center gap-2 font-semibold text-[#18182f]"
               whileHover={{ scale: 1.01 }}
               whileTap={{ scale: 0.99 }}
+              onClick={googleLogin}
             >
               <Image
                 src="https://www.svgrepo.com/show/303108/google-icon-logo.svg"
@@ -59,15 +92,7 @@ function Page() {
           className=" h-full w-full absolute top-0 object-cover rounded-xl"
         />
         <div className=" absolute top-0 w-full h-full z-20"></div>
-        <div
-          className=" w-full h-full absolute top-0 z-10 overflow-scroll scrollbar-hide"
-          // style={{
-          //   maskImage:
-          //     "linear-gradient(to bottom, transparent, black 2%, black 90%, transparent)", // Add mask-image
-          //   WebkitMaskImage:
-          //     "linear-gradient(to bottom, transparent, black 20%, black 80%, transparent)", // Ensure cross-browser support
-          // }}
-        >
+        <div className=" w-full h-full absolute top-0 z-10 overflow-scroll scrollbar-hide">
           <motion.div
             animate={{ translateY: "-50%" }}
             transition={{
@@ -79,10 +104,10 @@ function Page() {
             className=" flex flex-col items-center gap-4 py-2 "
           >
             <motion.div
-              ref={ref1}
+              // ref={ref1}
               className=" h-[290px] w-[260px] bg-white/90 rounded-xl  p-2"
               initial={{ opacity: 1 }}
-              animate={{ opacity: inView1 ? 1 : 0 }}
+              // animate={{ opacity: inView1 ? 1 : 0 }}
               transition={{ duration: 2 }}
             >
               <p className=" text-xl">Growth</p>
@@ -108,10 +133,10 @@ function Page() {
               </div>
             </motion.div>
             <motion.div
-              ref={ref2}
+              // ref={ref2}
               className=" h-[290px] w-[260px] bg-white/90 rounded-xl p-2"
               initial={{ opacity: 1 }}
-              animate={{ opacity: inView2 ? 1 : 0 }}
+              // animate={{ opacity: inView2 ? 1 : 0 }}
               transition={{ duration: 2 }}
             >
               <p className=" text-xl">Productivity</p>
@@ -138,10 +163,10 @@ function Page() {
               </div>
             </motion.div>
             <motion.div
-              ref={ref3}
+              // ref={ref3}
               className=" h-[290px] w-[260px] bg-white/90 rounded-xl p-2"
               initial={{ opacity: 1 }}
-              animate={{ opacity: inView3 ? 1 : 0 }}
+              // animate={{ opacity: inView3 ? 1 : 0 }}
               transition={{ duration: 2 }}
             >
               <p className=" text-3xl font-bold bg-gradient-to-r from-[#6245c3] via-[#45bef2] to-[#b841eb] inline-block text-transparent bg-clip-text">
@@ -165,10 +190,10 @@ function Page() {
               </div>
             </motion.div>
             <motion.div
-              ref={ref4}
+              // ref={ref4}
               className=" h-[290px] w-[260px] bg-white/90 rounded-xl p-2"
               initial={{ opacity: 1 }}
-              animate={{ opacity: inView4 ? 1 : 0 }}
+              // animate={{ opacity: inView4 ? 1 : 0 }}
               transition={{ duration: 2 }}
             >
               <p className=" text-xl">Customers</p>
