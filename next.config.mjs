@@ -1,8 +1,7 @@
 /** @type {import('next').NextConfig} */
 const nextConfig = {
   env: {
-    url: process.env.url,
-    // url: "https://docsbackend-vp65.onrender.com",
+    url: process.env.URL,
   },
 
   images: {

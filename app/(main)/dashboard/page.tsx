@@ -3,14 +3,16 @@ import React, { useState, useEffect } from "react";
 import { DownIcon, NotificationIcon, SearchIcon } from "@/components/svg";
 import { motion, AnimatePresence } from "framer-motion";
 import { Addnewfile } from "@/components/pages/dashboard";
+import dotenv from "dotenv"
 
 function Page() {
   const [isExpanded, setIsExpanded] = useState(false);
   const [document, setDocument] = useState([]);
+  dotenv.config()
   useEffect(() => {
     const getAllFiles = async () => {
       try {
-        const response = await fetch(`${process.env.url}/file/view`, {
+        const response = await fetch(`${process.env.NEXT_PUBLIC_URL}/file/view`, {
           credentials: "include",
         });
         if (response.ok) {

@@ -9,15 +9,16 @@ import { Logo } from "@/components/core/logo";
 import { motion } from "framer-motion";
 import { CodeResponse, useGoogleLogin } from "@react-oauth/google";
 import { useRouter } from "next/navigation";
-
+import dotenv from "dotenv";
 function Page() {
   const router = useRouter();
-  console.log(process.env.url);
+  dotenv.config();
+  console.log(process.env.NEXT_PUBLIC_URL);
   const googleResponse = async (authResult: CodeResponse) => {
     try {
       if (authResult.code) {
         const response = await fetch(
-          `${process.env.url}/auth/google?code=${authResult.code}`,
+          `${process.env.NEXT_PUBLIC_URL}/auth/google?code=${authResult.code}`,
           {
             method: "POST", // Specify method if needed
             credentials: "include", // Important to send and receive cookies
