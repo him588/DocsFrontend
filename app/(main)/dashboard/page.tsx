@@ -10,7 +10,7 @@ function Page() {
   useEffect(() => {
     const getAllFiles = async () => {
       try {
-        const response = await fetch("http://localhost:8000/file/view", {
+        const response = await fetch(`${process.env.url}/file/view`, {
           credentials: "include",
         });
         if (response.ok) {
@@ -31,8 +31,8 @@ function Page() {
 
     getAllFiles();
   }, []);
-  
-  if (typeof document !== 'undefined') {
+
+  if (typeof document !== "undefined") {
     console.log(document);
   }
   // console.log(document)
@@ -100,8 +100,12 @@ function Page() {
       <div className=" mt-1 grid grid-cols-4 gap-4">
         <Addnewfile />
 
-        {document.map((item,index)=> <div key={index} className=" w-[100%] h-[200px] bg-white rounded-xl "></div>)}
-        
+        {document.map((item, index) => (
+          <div
+            key={index}
+            className=" w-[100%] h-[200px] bg-white rounded-xl "
+          ></div>
+        ))}
       </div>
 
       {/* SHOW CONTENT  */}

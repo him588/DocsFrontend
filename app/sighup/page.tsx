@@ -12,11 +12,12 @@ import { useRouter } from "next/navigation";
 
 function Page() {
   const router = useRouter();
+  console.log(process.env.url);
   const googleResponse = async (authResult: CodeResponse) => {
     try {
       if (authResult.code) {
         const response = await fetch(
-          `http://localhost:8000/auth/google?code=${authResult.code}`,
+          `${process.env.url}/auth/google?code=${authResult.code}`,
           {
             method: "POST", // Specify method if needed
             credentials: "include", // Important to send and receive cookies
