@@ -13,12 +13,12 @@ import dotenv from "dotenv";
 function Page() {
   const router = useRouter();
   dotenv.config();
-  console.log(process.env.NEXT_PUBLIC_URL);
+  console.log(process.env.URL);
   const googleResponse = async (authResult: CodeResponse) => {
     try {
       if (authResult.code) {
         const response = await fetch(
-          `${process.env.NEXT_PUBLIC_URL}/auth/google?code=${authResult.code}`,
+          `${process.env.URL}/auth/google?code=${authResult.code}`,
           {
             method: "POST", // Specify method if needed
             credentials: "include", // Important to send and receive cookies
