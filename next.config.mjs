@@ -1,7 +1,7 @@
 /** @type {import('next').NextConfig} */
 const nextConfig = {
   env: {
-    url: process.env.URL,
+    URL: process.env.URL,
   },
 
   images: {
