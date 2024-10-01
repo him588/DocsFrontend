@@ -1,25 +1,22 @@
-// import Tiptap from "@/components/core/tiptap/tiptap";
 import Image from "next/image";
 import React from "react";
 import grid from "@/components/images/image.png";
-import Toolbar from "@/components/core/toolbar";
-// import image from "@/components/images/image.png";
+import Editor from "@/components/utils/tiptap/editor";
 
 function Page() {
   return (
-    <div className=" w-full h-full overflow-scroll scrollbar-hide">
-      <div className=" w-[70%] h-full rounded-[20px] overflow-hidden bg-white relative">
+    <div className="w-full h-full overflow-y-scroll scrollbar-hide ">
+      <div className="w-[70%] min-h-screen rounded-[20px] bg-white  relative">
         <Image
           src={grid}
           alt="Image not loading"
-          className=" object-cover w-full h-full absolute top-0 "
+          className="object-cover w-full h-full absolute top-0"
         />
-        <div className=" relative z-10 flex flex-col items-center pt-2  ">
-          <div className="  sticky  bg-white h-[40px] rounded-md shadow-[0_3px_10px_rgb(0,0,0,0.2)]">
-            <Toolbar />
+        <div className="relative h-full z-10 flex flex-col items-center gap-3 p-2">
+          <div className="w-[90%] min-h-[500px]  outline-none  rounded-xl bg-opacity-80 p-2">
+            <Editor />
           </div>
         </div>
-        {/* <Image src={image} alt="" className="w-full h-full" /> */}
       </div>
     </div>
   );

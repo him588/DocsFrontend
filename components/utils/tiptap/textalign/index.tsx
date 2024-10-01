@@ -6,8 +6,9 @@ import {
   LeftalignIcon,
   RightAlignIcon,
 } from "@/components/svg";
+import { Editor } from "@tiptap/core";
 
-const TextAlign = () => {
+function TextAlign({ editor }: { editor: Editor }) {
   const [isOpen, setIsOpen] = useState(false);
 
   const toggleDropdown = () => {
@@ -37,21 +38,42 @@ const TextAlign = () => {
             className="absolute  mt-2  p-1 flex   justify-center items-center bg-white rounded-md shadow-lg ring-1 ring-black ring-opacity-5"
           >
             <div className=" h-full flex gap-1">
-              <div className=" h-full w-[35px] flex items-center cursor-pointer p-1 hover:bg-[#f2f2f3] rounded-sm">
+              <button
+                onClick={() =>
+                  editor.chain().focus().setTextAlign("left").run()
+                }
+                className={`h-full w-[35px] flex items-center cursor-pointer p-1 hover:bg-[#f2f2f3] rounded-sm ${
+                  editor.isActive({ textAlign: "left" }) ? "is-active" : ""
+                }`}
+              >
                 <LeftalignIcon h={25} w={25} c="#7b7e89" />
-              </div>
-              <div className=" h-full w-[35px] flex items-center cursor-pointer p-1 hover:bg-[#f2f2f3] rounded-sm">
+              </button>
+              <button
+                onClick={() =>
+                  editor.chain().focus().setTextAlign("center").run()
+                }
+                className={`h-full w-[35px] flex items-center cursor-pointer p-1 hover:bg-[#f2f2f3] rounded-sm ${
+                  editor.isActive({ textAlign: "center" }) ? "is-active" : ""
+                }`}
+              >
                 <CenterAlignIcon h={24} w={24} c="#7b7e89" />
-              </div>
-              <div className=" h-full w-[35px] flex items-center cursor-pointer p-1 hover:bg-[#f2f2f3] rounded-sm">
+              </button>
+              <button
+                onClick={() =>
+                  editor.chain().focus().setTextAlign("right").run()
+                }
+                className={`h-full w-[35px] flex items-center cursor-pointer p-1 hover:bg-[#f2f2f3] rounded-sm ${
+                  editor.isActive({ textAlign: "right" }) ? "is-active" : ""
+                }`}
+              >
                 <RightAlignIcon h={25} w={25} c="#7b7e89" />
-              </div>
+              </button>
             </div>
           </motion.div>
         )}
       </AnimatePresence>
     </div>
   );
-};
+}
 
 export default TextAlign;

@@ -25,3 +25,39 @@ body {
     text-wrap: balance;
   }
 }
+
+.ProseMirror:focus {
+  outline: none;
+}
+
+.ProseMirror {
+  background-color: #f9f9f9;
+  margin-top: 2px;
+  padding: 4px;
+  opacity: 0.8;
+  min-height: 85vh;
+  min-height: 100vh;
+  overflow: hidden;
+}
+@layer base {
+  h1 {
+    @apply font-bold;
+    @apply text-3xl;
+  }
+  h2 {
+    @apply font-bold;
+    @apply text-2xl;
+  }
+  h3 {
+    @apply font-bold;
+    @apply text-xl;
+  }
+  ul {
+    list-style: disc;
+    margin-left: 20px;
+  }
+  ol {
+    list-style: decimal;
+    margin-left: 20px;
+  }
+}

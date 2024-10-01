@@ -23,6 +23,7 @@ import CommentIcon from "./commenticon";
 import RightAlignIcon from "./rightalign";
 import LeftalignIcon from "./leftalighn";
 import CenterAlignIcon from "./centericon";
+import NotIcon from "./notvalidicon";
 export {
   ArrowIcon,
   HomeIcon,
@@ -49,4 +50,5 @@ export {
   RightAlignIcon,
   LeftalignIcon,
   CenterAlignIcon,
+  NotIcon,
 };

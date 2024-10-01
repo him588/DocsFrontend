@@ -2,9 +2,14 @@
 import { useState } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import { DownIcon } from "@/components/svg";
+import { Editor } from "@tiptap/core";
 
-const Dropdown = () => {
+function Dropdown({ editor }: { editor: Editor }) {
   const [isOpen, setIsOpen] = useState(false);
+  // const editor = useCurrentEditor();
+  if (!editor) {
+    return null;
+  }
 
   const toggleDropdown = () => {
     setIsOpen(!isOpen);
@@ -40,36 +45,45 @@ const Dropdown = () => {
             className="absolute  mt-2 w-[150px] p-1 flex   justify-center items-center bg-white rounded-md shadow-lg ring-1 ring-black ring-opacity-5"
           >
             <div className=" w-full flex flex-col">
-              <a
-                href="#"
-                className="block px-4  py-[6px] font-semibold rounded-md  text-[#7b7e89] hover:bg-gray-100"
+              <button
+                onClick={() =>
+                  editor.chain().focus().toggleHeading({ level: 1 }).run()
+                }
+                className={`block cursor-pointer px-4  py-[6px] font-semibold rounded-md  text-[#7b7e89] hover:bg-gray-100 ${
+                  editor.isActive("heading", { level: 1 }) ? "is-active" : ""
+                }`}
               >
                 Header
-              </a>
-              <a
-                href="#"
-                className="block px-4 py-[6px] font-semibold rounded-md  text-[#7b7e89] hover:bg-gray-100"
+              </button>
+              <button
+                onClick={() =>
+                  editor.chain().focus().toggleHeading({ level: 2 }).run()
+                }
+                className={`block cursor-pointer px-4  py-[6px] font-semibold rounded-md  text-[#7b7e89] hover:bg-gray-100 ${
+                  editor.isActive("heading", { level: 2 }) ? "is-active" : ""
+                }`}
               >
                 Title
-              </a>
-              <a
-                href="#"
-                className="block px-4 py-[6px] font-semibold rounded-md  text-[#7b7e89] hover:bg-gray-100"
+              </button>
+              <button
+                onClick={() =>
+                  editor.chain().focus().toggleHeading({ level: 3 }).run()
+                }
+                className={`block cursor-pointer px-4  py-[6px] font-semibold rounded-md  text-[#7b7e89] hover:bg-gray-100 ${
+                  editor.isActive("heading", { level: 3 }) ? "is-active" : ""
+                }`}
               >
                 Subtitle
-              </a>
-              <a
-                href="#"
-                className="block px-4 py-[6px] font-semibold rounded-md  text-[#7b7e89] hover:bg-gray-100"
-              >
+              </button>
+              {/* <button className="block cursor-pointer px-4 py-[6px] font-semibold rounded-md  text-[#7b7e89] hover:bg-gray-100">
                 Normal Text
-              </a>
+              </button> */}
             </div>
           </motion.div>
         )}
       </AnimatePresence>
     </div>
   );
-};
+}
 
 export default Dropdown;
