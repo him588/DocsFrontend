@@ -2,8 +2,9 @@
 import React, { useState, useEffect } from "react";
 import { DownIcon, NotificationIcon, SearchIcon } from "@/components/svg";
 import { motion, AnimatePresence } from "framer-motion";
-import { Addnewfile } from "@/components/pages/dashboard";
+// import { Addnewfile } from "@/components/pages/dashboard";
 import dotenv from "dotenv";
+import Card from "@/components/core/card";
 
 function Page() {
   const [isExpanded, setIsExpanded] = useState(false);
@@ -34,9 +35,6 @@ function Page() {
     getAllFiles();
   }, []);
 
-  if (typeof document !== "undefined") {
-    console.log(document);
-  }
   // console.log(document)
   const toggleExpand = () => {
     setIsExpanded(!isExpanded);
@@ -99,14 +97,16 @@ function Page() {
         </div>
       </div>
       {/* ADD NEW DOCS  */}
-      <div className=" mt-1 grid grid-cols-4 gap-4">
-        <Addnewfile />
+      <div className=" mt-1 grid sm:grid-cols-2 md:grid-cols-2   lg:grid-cols-3  gap-4">
+        {/* <Addnewfile /> */}
 
         {document.map((item, index) => (
           <div
             key={index}
-            className=" w-[100%] h-[200px] bg-white rounded-xl "
-          ></div>
+            className=" w-[100%] h-[200px] bg-white rounded-xl overflow-hidden shadow-[0px_2px_3px_-1px_rgba(0,0,0,0.1),0px_1px_0px_0px_rgba(25,28,33,0.02),0px_0px_0px_1px_rgba(25,28,33,0.08)] "
+          >
+            <Card />
+          </div>
         ))}
       </div>
 

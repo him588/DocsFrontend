@@ -9,7 +9,7 @@ function Layout({ children }: { children: React.ReactNode }) {
       <div className=" min-w-[200px] w-[20%]">
         <Sidebar />
       </div>
-      <div className=" min-w-[100%-200px] w-[80%]  relative h-full bg-[#ebf1fa] rounded-l-[20px] overflow-hidden">
+      <div className=" min-w-[100%-200px] w-[80%]  relative h-full bg-[#ebf1fa] rounded-l-[20px] overflow-x-hidden ">
         <motion.div
           className="w-[300px] h-[300px] absolute top-0 right-0 bg-opacity-100 blur-[50px]"
           style={{
